@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>label{display: inline-block;width: 80px;}</style>
+    
+</head>
+<body>
+    <ul id="messages">hey</ul>
+    <script type="module"> 
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
+        
+        const firebaseConfig = {
+          apiKey: "AIzaSyAg9JTUjOwtsI9R7JTcfHbVPH3Tx2cMmYE",
+          authDomain: "notificationreaderfinal.firebaseapp.com",
+          databaseURL: "https://notificationreaderfinal-default-rtdb.firebaseio.com",
+          projectId: "notificationreaderfinal",
+          storageBucket: "notificationreaderfinal.appspot.com",
+          messagingSenderId: "644206651547",
+          appId: "1:644206651547:web:a0c0aad8272c9d21367e3e",
+          measurementId: "G-005B758CZ9"
+        };
+      
+      
+           
+              // Initialize Firebase
+              const app = initializeApp(firebaseConfig);
+              const analytics = getAnalytics(app);
+            //   const db = firebase.database();
+              const database =getDatabase(app);
+              import { getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
+              
+              const dbRef = ref(getDatabase());
+              get(child(dbRef, "msg/")).then((snapshot) => {
+              if (snapshot.exists()) {
+              console.log(snapshot.val());
+              } else {
+              console.log("No data available");
+                  }
+                
+                const messages = snapshot.val();
+                const massage = "<li>" + messages.title + " : " + messages.message + "</li>";
+                document.getElementById("messages").innerHTML += massage;
+    //             const message = `<li class=${
+    // title === messages.title ? "sent" : "receive"}><span>${messages.title}: </span>${messages.message}</li>`;
+    //                 // append the message on the page
+    //             document.getElementById("messages").innerHTML += message;
+              }).catch((error) => {
+              console.error(error);
+                  });
+      
+                  //listener
+               
+                // fetchChat.on("child_added", function (snapshot) {
+                // const messages = snapshot.val();
+                // const message = `<li class=${
+                // username === messages.title ? "sent" : "receive"
+                // }><span>${messages.title}: </span>${messages.message}</li>`;
+                
+  
+// });
+                //   firebase.database().ref("msg").on("child_added",function(snapshot){
+                //       var html="";
+                //       html+="<li>";
+                //           html+=snapshot.val().title + ": " + snapshot.val().massage;
+                //       html+="</li>";
+      
+                //       document.getElementById("massages").innerHTML +=html;
+                //   });
+            </script>
+   
+    
+   
+
+  
+</body>
+</html>
